@@ -1,4 +1,9 @@
+//SEG2105-A1
+//### - Jolayemioluwa Ilori
+//7997484 - Karen Santos
+
 package pointPC;
+
 // This file contains material supporting section 2.9 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 

@@ -1,4 +1,9 @@
+//SEG2105-A1
+//### - Jolayemioluwa Ilori
+//7997484 - Karen Santos
+
 package pointPC;
+
 // This file contains material supporting section 2.9 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -16,7 +21,11 @@ package pointPC;
 public class PointCPDesign2 {
 	// Instance variables ************************************************
 
-	private char type;
+	/**
+	 * Contains C(artesian) or P(olar) to identify the type of coordinates that
+	 * are being dealt with.
+	 */
+	private char typeCoord;
 
 	/**
 	 * Contains the current value of X or RHO depending on the type of
@@ -45,7 +54,7 @@ public class PointCPDesign2 {
 			this.rho = xOrRho;
 			this.theta = yOrTheta;
 		}
-		this.type = type;
+		this.typeCoord = type;
 	}
 
 	// Instance methods **************************************************
@@ -65,6 +74,16 @@ public class PointCPDesign2 {
 	public double getTheta() {
 		return theta;
 	}
+	
+	/**
+	 * Converts Cartesian coordinates to Polar coordinates.
+	 */
+	public void convertStorageToPolar() {}
+
+	/**
+	 * Converts Polar coordinates to Cartesian coordinates.
+	 */
+	public void convertStorageToCartesian() {}
 
 	/**
 	 * Calculates the distance in between two points using the Pythagorean
@@ -107,7 +126,7 @@ public class PointCPDesign2 {
 
 	@Override
 	public String toString() {
-		if (type == 'C') {
+		if (typeCoord == 'C') {
 			return "[" + getX() + ", " + getY() + "]";
 		} else {
 			return "[" + getRho() + ", " + getTheta() + "]";
