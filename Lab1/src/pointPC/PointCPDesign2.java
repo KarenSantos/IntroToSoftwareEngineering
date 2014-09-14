@@ -9,14 +9,13 @@ package pointPC;
 // license found at www.lloseng.com 
 
 /**
- * This class contains instances of coordinates in either polar or cartesian
- * format. It also provides the utilities to convert them into the other type.
- * It is not an optimal design, it is used only to illustrate some design
- * issues.
+ * This class contains instances of coordinates in polar format. Does not
+ * provides the utilities to convert them into the other type but it can receive
+ * both types to create an instance. 
  *
- * @author Fran&ccedil;ois B&eacute;langer
- * @author Dr Timothy C. Lethbridge
- * @version July 2000
+ * @author Jolayemioluwa Ilori
+ * @author Karen Santos
+ * @version September 2014
  */
 public class PointCPDesign2 {
 	// Instance variables ************************************************
@@ -74,16 +73,18 @@ public class PointCPDesign2 {
 	public double getTheta() {
 		return theta;
 	}
-	
+
 	/**
 	 * Converts Cartesian coordinates to Polar coordinates.
 	 */
-	public void convertStorageToPolar() {}
+	public void convertStorageToPolar() {
+	}
 
 	/**
 	 * Converts Polar coordinates to Cartesian coordinates.
 	 */
-	public void convertStorageToCartesian() {}
+	public void convertStorageToCartesian() {
+	}
 
 	/**
 	 * Calculates the distance in between two points using the Pythagorean

@@ -11,13 +11,12 @@ package pointPC;
 import java.io.*;
 
 /**
- * This class prompts the user for a set of coordinates, and then converts them
- * from polar to cartesian or vice-versa.
+ * This class prompts the user for a set of coordinates, and then prints them
+ * in polar and cartesian or vice-versa.
  *
- * @author Fran&ccedil;ois B&eacute;langer
- * @author Dr Timothy C. Lethbridge
- * @author Paul Holden
- * @version July 2000
+ * @author Jolayemioluwa Ilori
+ * @author Karen Santos
+ * @version September 2014
  */
 public class PointCPDesign2Test {
 	// Class methods *****************************************************
