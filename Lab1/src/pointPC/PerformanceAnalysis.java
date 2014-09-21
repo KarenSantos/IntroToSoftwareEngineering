@@ -567,7 +567,7 @@ public class PerformanceAnalysis {
 	 * 
 	 * @param values
 	 *            The list of long values.
-	 * @return The average value of the list.
+	 * @return The median value of the list.
 	 */
 	private static Long getMedian(List<Long> values) {
 		Collections.sort(values);
