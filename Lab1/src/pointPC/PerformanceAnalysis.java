@@ -4,7 +4,6 @@
 
 package pointPC;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +47,7 @@ public class PerformanceAnalysis {
 	private static Random randomGenerator = new Random();
 
 	private final static int RUNNING_TIMES = 5;
-	private final static int RUNNING_TIMES_EACH = 370000;
+	private final static int RUNNING_TIMES_EACH = 1000000;
 
 	public static void main(String[] args) {
 
@@ -61,7 +60,7 @@ public class PerformanceAnalysis {
 		List<Long> valuesD4Instances = new ArrayList<Long>();
 		
 		System.out.println("Each method was called " + RUNNING_TIMES_EACH + " times.");
-		System.out.println("The values were calculated from running the test for " + RUNNING_TIMES + " times.\n");
+		System.out.println("The values were calculated from running the test " + RUNNING_TIMES + " times.\n");
 
 		System.out.println("Generating random instances for PointCP Designs 1, 2 and 4");
 		int i = 0;
@@ -72,13 +71,13 @@ public class PerformanceAnalysis {
 			i++;
 		}
 		System.out.println("Times in milliseconds");
-		System.out.println("Design 1: Average = " + getAverage(valuesD1Instances)
+		System.out.println("Design 1: Median = " + getMedian(valuesD1Instances)
 				+ ", Min = " + getMin(valuesD1Instances)
 				+ ", Max = " + getMax(valuesD1Instances));
-		System.out.println("Design 2: Average = " + getAverage(valuesD2Instances)
+		System.out.println("Design 2: Median = " + getMedian(valuesD2Instances)
 				+ ", Min = " + getMin(valuesD2Instances)
 				+ ", Max = " + getMax(valuesD2Instances));
-		System.out.println("Design 4: Average = " + getAverage(valuesD4Instances)
+		System.out.println("Design 4: Median = " + getMedian(valuesD4Instances)
 				+ ", Min = " + getMin(valuesD4Instances)
 				+ ", Max = " + getMax(valuesD4Instances) + "\n");
 
@@ -96,13 +95,13 @@ public class PerformanceAnalysis {
 
 		}
 		System.out.println("Times in milliseconds");
-		System.out.println("Design 1: Average = " + getAverage(valuesD1GetX)
+		System.out.println("Design 1: Median = " + getMedian(valuesD1GetX)
 				+ ", Min = " + getMin(valuesD1GetX)
 				+ ", Max = " + getMax(valuesD1GetX));
-		System.out.println("Design 1: Average = " + getAverage(valuesD2GetX)
+		System.out.println("Design 2: Median = " + getMedian(valuesD2GetX)
 				+ ", Min = " + getMin(valuesD2GetX)
 				+ ", Max = " + getMax(valuesD2GetX));
-		System.out.println("Design 1: Average = " + getAverage(valuesD4GetX)
+		System.out.println("Design 4: Median = " + getMedian(valuesD4GetX)
 				+ ", Min = " + getMin(valuesD4GetX)
 				+ ", Max = " + getMax(valuesD4GetX) + "\n");
 
@@ -120,13 +119,13 @@ public class PerformanceAnalysis {
 
 		}
 		System.out.println("Times in milliseconds");
-		System.out.println("Design 1: Average = " + getAverage(valuesD1GetY)
+		System.out.println("Design 1: Median = " + getMedian(valuesD1GetY)
 				+ ", Min = " + getMin(valuesD1GetY)
 				+ ", Max = " + getMax(valuesD1GetY));
-		System.out.println("Design 1: Average = " + getAverage(valuesD2GetY)
+		System.out.println("Design 2: Median = " + getMedian(valuesD2GetY)
 				+ ", Min = " + getMin(valuesD2GetY)
 				+ ", Max = " + getMax(valuesD2GetY));
-		System.out.println("Design 1: Average = " + getAverage(valuesD4GetY)
+		System.out.println("Design 4: Median = " + getMedian(valuesD4GetY)
 				+ ", Min = " + getMin(valuesD4GetY)
 				+ ", Max = " + getMax(valuesD4GetY) + "\n");
 
@@ -144,13 +143,13 @@ public class PerformanceAnalysis {
 
 		}
 		System.out.println("Times in milliseconds");
-		System.out.println("Design 1: Average = " + getAverage(valuesD1GetRho)
+		System.out.println("Design 1: Median = " + getMedian(valuesD1GetRho)
 				+ ", Min = " + getMin(valuesD1GetRho)
 				+ ", Max = " + getMax(valuesD1GetRho));
-		System.out.println("Design 1: Average = " + getAverage(valuesD2GetRho)
+		System.out.println("Design 2: Median = " + getMedian(valuesD2GetRho)
 				+ ", Min = " + getMin(valuesD2GetRho)
 				+ ", Max = " + getMax(valuesD2GetRho));
-		System.out.println("Design 1: Average = " + getAverage(valuesD4GetRho)
+		System.out.println("Design 4: Median = " + getMedian(valuesD4GetRho)
 				+ ", Min = " + getMin(valuesD4GetRho)
 				+ ", Max = " + getMax(valuesD4GetRho) + "\n");
 
@@ -169,13 +168,13 @@ public class PerformanceAnalysis {
 
 		}
 		System.out.println("Times in milliseconds");
-		System.out.println("Design 1: Average = " + getAverage(valuesD1GetTheta)
+		System.out.println("Design 1: Median = " + getMedian(valuesD1GetTheta)
 				+ ", Min = " + getMin(valuesD1GetTheta)
 				+ ", Max = " + getMax(valuesD1GetTheta));
-		System.out.println("Design 1: Average = " + getAverage(valuesD2GetTheta)
+		System.out.println("Design 2: Median = " + getMedian(valuesD2GetTheta)
 				+ ", Min = " + getMin(valuesD2GetTheta)
 				+ ", Max = " + getMax(valuesD2GetTheta));
-		System.out.println("Design 1: Average = " + getAverage(valuesD4GetTheta)
+		System.out.println("Design 4: Median = " + getMedian(valuesD4GetTheta)
 				+ ", Min = " + getMin(valuesD4GetTheta)
 				+ ", Max = " + getMax(valuesD4GetTheta) + "\n");
 
@@ -194,13 +193,13 @@ public class PerformanceAnalysis {
 
 		}
 		System.out.println("Times in milliseconds");
-		System.out.println("Design 1: Average = " + getAverage(valuesD1GetDistance)
+		System.out.println("Design 1: Median = " + getMedian(valuesD1GetDistance)
 				+ ", Min = " + getMin(valuesD1GetDistance)
 				+ ", Max = " + getMax(valuesD1GetDistance));
-		System.out.println("Design 1: Average = " + getAverage(valuesD2GetDistance)
+		System.out.println("Design 2: Median = " + getMedian(valuesD2GetDistance)
 				+ ", Min = " + getMin(valuesD2GetDistance)
 				+ ", Max = " + getMax(valuesD2GetDistance));
-		System.out.println("Design 1: Average = " + getAverage(valuesD4GetDistance)
+		System.out.println("Design 4: Median = " + getMedian(valuesD4GetDistance)
 				+ ", Min = " + getMin(valuesD4GetDistance)
 				+ ", Max = " + getMax(valuesD4GetDistance) + "\n");
 
@@ -219,13 +218,13 @@ public class PerformanceAnalysis {
 
 		}
 		System.out.println("Times in milliseconds");
-		System.out.println("Design 1: Average = " + getAverage(valuesD1rotatePoint)
+		System.out.println("Design 1: Median = " + getMedian(valuesD1rotatePoint)
 				+ ", Min = " + getMin(valuesD1rotatePoint)
 				+ ", Max = " + getMax(valuesD1rotatePoint));
-		System.out.println("Design 1: Average = " + getAverage(valuesD2rotatePoint)
+		System.out.println("Design 2: Median = " + getMedian(valuesD2rotatePoint)
 				+ ", Min = " + getMin(valuesD2rotatePoint)
 				+ ", Max = " + getMax(valuesD2rotatePoint));
-		System.out.println("Design 1: Average = " + getAverage(valuesD4rotatePoint)
+		System.out.println("Design 4: Median = " + getMedian(valuesD4rotatePoint)
 				+ ", Min = " + getMin(valuesD4rotatePoint)
 				+ ", Max = " + getMax(valuesD4rotatePoint) + "\n");
 
@@ -564,20 +563,16 @@ public class PerformanceAnalysis {
 	}
 
 	/**
-	 * Returns the average value of a list of long values.
+	 * Returns the median value of a list of long values.
 	 * 
 	 * @param values
 	 *            The list of long values.
 	 * @return The average value of the list.
 	 */
-	private static String getAverage(List<Long> values) {
-		double sum = 0;
-		for (Long value : values) {
-			sum += (double) value;
-		}
-		double average = sum / values.size();
-		DecimalFormat format = new DecimalFormat("0.00");
-		return format.format(average);
+	private static Long getMedian(List<Long> values) {
+		Collections.sort(values);
+		int half = values.size()/2;	
+		return values.get(half);
 	}
 
 	/**
