@@ -66,11 +66,78 @@ public class ChatClient extends AbstractClient {
 	 *            The message from the UI.
 	 */
 	public void handleMessageFromClientUI(String message) {
-		try {
-			sendToServer(message);
-		} catch (IOException e) {
-			clientUI.display("Could not send message to server.  Terminating client.");
-			quit();
+		
+		// **** Changed for E50' - JI and KS
+		if (message.startsWith("#")) {
+			
+			String[] messages = message.split(" ");
+			
+			String message1 = messages[0];
+			
+			switch (message1.toLowerCase()) {
+            case "#quit": 
+            	quit();
+                break;
+                
+            case "#logoff":
+            	try {
+        			closeConnection();
+        		} catch (IOException e) {
+        			System.out.println("exeption called!!");
+        		}
+            	break;
+            case "#sethost":
+            	
+            	if (!isConnected()){
+            		String message2 = messages[1];
+            		setHost(message2);
+            	} else {
+            		clientUI.display("Error: please logoff to set host.");
+            	}
+            	break;
+            	
+            case "#setport":
+            	if (!isConnected()){
+            		String message2 = messages[1];
+            		setPort(Integer.parseInt(message2));
+            	} else {
+            		clientUI.display("Error: please logoff to set port.");
+            	}
+            	break;
+            	
+            case "#login":
+            	if (!isConnected()){
+            		try {
+						openConnection();
+					} catch (IOException e) {
+						System.out.println("exeption called!!");
+					}
+            	} else {
+            		clientUI.display("Error: please logoff to login.");
+            	}
+            	break;
+            	
+            case "#gethost":
+            	clientUI.display(getHost());
+            	break;
+            	
+            case "#getport":
+            	clientUI.display("" + getPort());
+            	break;
+            
+            default: 
+                // TODO ask if is trying to use a command
+            	clientUI.display("This command is invalid, try another command.");
+                break;
+        }
+			
+		} else {
+			try {
+				sendToServer(message);
+			} catch (IOException e) {
+				clientUI.display("Could not send message to server.  Terminating client.");
+				quit();
+			}
 		}
 	}
 
@@ -91,6 +158,7 @@ public class ChatClient extends AbstractClient {
 	 */
 	@Override
 	protected void connectionException(Exception exception) {
+		// **** Changed for E49' - JI and KS
 		clientUI.display("Server has shutdown. Terminating client.");
 		quit();
 	}

@@ -101,6 +101,7 @@ public class ClientConsole implements ChatIF {
 			host = "localhost";
 		}
 		
+		// **** Changed for E49' JI and KS
 		try {
 			port = Integer.parseInt(args[1]);
 		} catch(Exception e) {
