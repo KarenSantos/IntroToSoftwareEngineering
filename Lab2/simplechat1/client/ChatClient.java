@@ -27,8 +27,16 @@ public class ChatClient extends AbstractClient {
 	 */
 	ChatIF clientUI;
 
+	// **** Changed for E51' - JI and KS
+	/**
+	 * The login ID used by the client to be identified by other clients and the
+	 * server.
+	 */
+	private String loginID;
+
 	// Constructors ****************************************************
 
+	// **** Changed for E51' - JI and KS
 	/**
 	 * Constructs an instance of the chat client.
 	 *
@@ -38,16 +46,28 @@ public class ChatClient extends AbstractClient {
 	 *            The port number to connect on.
 	 * @param clientUI
 	 *            The interface type variable.
+	 * @param loginID
+	 *            The login ID of the client.
 	 */
-
-	public ChatClient(String host, int port, ChatIF clientUI)
+	public ChatClient(String loginID, String host, int port, ChatIF clientUI)
 			throws IOException {
 		super(host, port); // Call the superclass constructor
+		this.loginID = loginID;
 		this.clientUI = clientUI;
 		openConnection();
+		sendToServer("#login " + loginID);
 	}
 
 	// Instance methods ************************************************
+
+	/**
+	 * Returns the login ID of the client.
+	 * 
+	 * @return The login ID of the client.
+	 */
+	public String getLoginID() {
+		return loginID;
+	}
 
 	/**
 	 * This method handles all data that comes in from the server.
@@ -66,71 +86,69 @@ public class ChatClient extends AbstractClient {
 	 *            The message from the UI.
 	 */
 	public void handleMessageFromClientUI(String message) {
-		
+
 		// **** Changed for E50' - JI and KS
 		if (message.startsWith("#")) {
-			
+
 			String[] messages = message.split(" ");
-			
+
 			String message1 = messages[0];
-			
+
 			switch (message1.toLowerCase()) {
-            case "#quit": 
-            	quit();
-                break;
-                
-            case "#logoff":
-            	try {
-        			closeConnection();
-        		} catch (IOException e) {
-        			System.out.println("exeption called!!");
-        		}
-            	break;
-            case "#sethost":
-            	
-            	if (!isConnected()){
-            		String message2 = messages[1];
-            		setHost(message2);
-            	} else {
-            		clientUI.display("Error: please logoff to set host.");
-            	}
-            	break;
-            	
-            case "#setport":
-            	if (!isConnected()){
-            		String message2 = messages[1];
-            		setPort(Integer.parseInt(message2));
-            	} else {
-            		clientUI.display("Error: please logoff to set port.");
-            	}
-            	break;
-            	
-            case "#login":
-            	if (!isConnected()){
-            		try {
+			case "#quit":
+				quit();
+				break;
+
+			case "#logoff":
+				try {
+					closeConnection();
+				} catch (IOException e) {
+				}
+				break;
+			case "#sethost":
+
+				if (!isConnected()) {
+					String message2 = messages[1];
+					setHost(message2);
+				} else {
+					clientUI.display("Error: please logoff to set host.");
+				}
+				break;
+
+			case "#setport":
+				if (!isConnected()) {
+					String message2 = messages[1];
+					setPort(Integer.parseInt(message2));
+				} else {
+					clientUI.display("Error: please logoff to set port.");
+				}
+				break;
+
+			case "#login":
+				if (!isConnected()) {
+					try {
 						openConnection();
 					} catch (IOException e) {
-						System.out.println("exeption called!!");
 					}
-            	} else {
-            		clientUI.display("Error: please logoff to login.");
-            	}
-            	break;
-            	
-            case "#gethost":
-            	clientUI.display(getHost());
-            	break;
-            	
-            case "#getport":
-            	clientUI.display("" + getPort());
-            	break;
-            
-            default: 
-                // TODO ask if is trying to use a command
-            	clientUI.display("This command is invalid, try another command.");
-                break;
-        }
-			
+				} else {
+					clientUI.display("Error: please logoff to login.");
+				}
+				break;
+
+			case "#gethost":
+				clientUI.display(getHost());
+				break;
+
+			case "#getport":
+				clientUI.display("" + getPort());
+				break;
+
+			default:
+				// TODO ask if is trying to use a command
+				clientUI.display("This command is invalid, try another command.");
+				break;
+			}
+
 		} else {
 			try {
 				sendToServer(message);

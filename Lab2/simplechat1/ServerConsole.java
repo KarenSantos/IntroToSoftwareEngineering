@@ -6,7 +6,7 @@ import common.ChatIF;
 //Ass3
 //6312215 - Jolayemi Ilori
 //7997484 - Karen Santos
-//**** Changed for E50' - JI and KS
+//**** CREATED for E50' b) - JI and KS
 
 /**
  * This class constructs the UI for a EchoServer. It implements the chat
@@ -76,6 +76,7 @@ public class ServerConsole implements ChatIF {
 	
 	// Class methods ***************************************************
 
+		//**** CUT from ECHO SERVER for E50' b) - JI and KS
 		/**
 		 * This method is responsible for the creation of the server instance (there
 		 * is no UI in this phase).

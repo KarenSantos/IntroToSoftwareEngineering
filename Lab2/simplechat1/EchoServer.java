@@ -53,8 +53,23 @@ public class EchoServer extends AbstractServer {
 	 *            The connection from which the message originated.
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-		System.out.println("Message received: " + msg + " from " + client);
-		this.sendToAllClients(msg);
+
+		// **** Changed for E51' - JI and KS
+		if (((String) msg).startsWith("#login")) {
+			if (client.getInfo("LoginID").equals(null)) {
+				client.setInfo("LoginID", ((String) msg).split(" ")[1]);
+			} else {
+				try {
+					client.sendToClient("Error: You cannot set another login.");
+				} catch (IOException e) {
+				}
+			}
+		} else {
+			String clientID = (String) client.getInfo("LoginID");
+			System.out.println("Message received from " + clientID + ": " + msg
+					+ " from " + client);
+			this.sendToAllClients(clientID + ": " + msg);
+		}
 	}
 
 	/**
@@ -74,8 +89,6 @@ public class EchoServer extends AbstractServer {
 
 			switch (message1.toLowerCase()) {
 			case "#quit":
-				sendToAllClients("The server has closed.");
-				serverUI.display("The server has closed.");
 				try {
 					close();
 				} catch (IOException e) {
@@ -83,55 +96,48 @@ public class EchoServer extends AbstractServer {
 				}
 				break;
 
-			 case "#stop":
-				 stopListening();
-				 serverStopped();
-			 break;
-			 
-			 case "#close":
-				 stopListening();
-				 for (Thread client : getClientConnections()){
-					 try {
-						((ConnectionToClient)client).close();
+			case "#stop":
+				stopListening();
+				break;
+
+			case "#close":
+				stopListening();
+				for (Thread client : getClientConnections()) {
+					try {
+						((ConnectionToClient) client).close();
 					} catch (IOException e) {
 					}
-				 }
-			
-			 break;
-			//
-			// case "#setport":
-			// if (!isConnected()){
-			// String message2 = messages[1];
-			// setPort(Integer.parseInt(message2));
-			// } else {
-			// clientUI.display("Error: please logoff to set port.");
-			// }
-			// break;
-			//
-			// case "#login":
-			// if (!isConnected()){
-			// try {
-			// openConnection();
-			// } catch (IOException e) {
-			// System.out.println("exeption called!!");
-			// }
-			// } else {
-			// clientUI.display("Error: please logoff to login.");
-			// }
-			// break;
-			//
-			// case "#gethost":
-			// clientUI.display(getHost());
-			// break;
-			//
-			// case "#getport":
-			// clientUI.display("" + getPort());
-			// break;
-			//
-			// default:
-			// // TODO ask if is trying to use a command
-			// clientUI.display("This command is invalid, try another command.");
-			// break;
+				}
+				break;
+
+			case "#setport":
+				if (!isListening() && getNumberOfClients() == 0) {
+					String message2 = messages[1];
+					setPort(Integer.parseInt(message2));
+				} else {
+					serverUI.display("Error: please close the server to set port.");
+				}
+				break;
+
+			case "#start":
+				if (!isListening()) {
+					try {
+						listen();
+					} catch (IOException e) {
+					}
+				} else {
+					serverUI.display("Error: please stop the server to start.");
+				}
+				break;
+
+			case "#getport":
+				serverUI.display("" + getPort());
+				break;
+
+			default:
+				// TODO ask if is trying to use a command
+				serverUI.display("This command is invalid, try another command.");
+				break;
 			}
 
 		} else {

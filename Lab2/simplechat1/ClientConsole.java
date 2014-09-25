@@ -3,6 +3,8 @@
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.util.Scanner;
+
 import client.*;
 import common.*;
 
@@ -33,6 +35,7 @@ public class ClientConsole implements ChatIF {
 
 	// Constructors ****************************************************
 
+	// **** Changed for E51' - JI and KS
 	/**
 	 * Constructs an instance of the ClientConsole UI.
 	 *
@@ -40,10 +43,12 @@ public class ClientConsole implements ChatIF {
 	 *            The host to connect to.
 	 * @param port
 	 *            The port to connect on.
+	 * @param loginID
+	 *            The login ID of the client.
 	 */
-	public ClientConsole(String host, int port) {
+	public ClientConsole(String loginID, String host, int port) {
 		try {
-			client = new ChatClient(host, port, this);
+			client = new ChatClient(loginID, host, port, this);
 		} catch (IOException exception) {
 			System.out.println("Error: Can't setup connection!"
 					+ " Terminating client.");
@@ -100,16 +105,28 @@ public class ClientConsole implements ChatIF {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			host = "localhost";
 		}
-		
+
 		// **** Changed for E49' JI and KS
 		try {
 			port = Integer.parseInt(args[1]);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			port = DEFAULT_PORT;
 		}
-		
-		ClientConsole chat = new ClientConsole(host, port);
-		chat.accept(); // Wait for console data
+
+		// **** Changed for E51' - JI and KS
+		System.out.println("Please enter your login ID: ");
+
+		Scanner fromConsole = new Scanner(System.in);
+		String loginID;
+
+			loginID = fromConsole.nextLine();
+			if (!loginID.startsWith(" ") && !loginID.equals("")) {
+				ClientConsole chat = new ClientConsole(loginID, host, port);
+				chat.accept(); // Wait for console data
+			}
+			
+		fromConsole.close();
+		System.out.println("Invalid login ID. System has quit.");
 	}
 }
 // End of ConsoleChat class
