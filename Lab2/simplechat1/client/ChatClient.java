@@ -101,6 +101,8 @@ public class ChatClient extends AbstractClient {
 
 			case "#logoff":
 				try {
+					clientUI.display("Connection closed.");
+					sendToServer("Logging off");
 					closeConnection();
 				} catch (IOException e) {
 				}
@@ -110,6 +112,7 @@ public class ChatClient extends AbstractClient {
 				if (!isConnected()) {
 					String message2 = messages[1];
 					setHost(message2);
+					clientUI.display("Host set to: " + message2);
 				} else {
 					clientUI.display("Error: please logoff to set host.");
 				}
@@ -119,6 +122,7 @@ public class ChatClient extends AbstractClient {
 				if (!isConnected()) {
 					String message2 = messages[1];
 					setPort(Integer.parseInt(message2));
+					clientUI.display("Port set to: " + message2);
 				} else {
 					clientUI.display("Error: please logoff to set port.");
 				}

@@ -57,7 +57,11 @@ public class EchoServer extends AbstractServer {
 		// **** Changed for E51' - JI and KS
 		if (((String) msg).startsWith("#login")) {
 			if (client.getInfo("LoginID") == null) {
-				client.setInfo("LoginID", ((String) msg).split(" ")[1]);
+				String loginID = ((String) msg).split(" ")[1];
+				client.setInfo("LoginID", loginID);
+				String loginMsg = loginID + " has logged on."; 
+				sendToAllClients(loginMsg);
+				System.out.println(loginMsg);
 			} else {
 				try {
 					client.sendToClient("Error: You cannot set another login.");
@@ -67,8 +71,7 @@ public class EchoServer extends AbstractServer {
 			}
 		} else {
 			String clientID = (String) client.getInfo("LoginID");
-			System.out.println("Message received from " + clientID + ": " + msg
-					+ " from " + client);
+			System.out.println("Message received: " + msg + " from " + clientID);
 			this.sendToAllClients(clientID + ": " + msg);
 		}
 	}
@@ -115,6 +118,7 @@ public class EchoServer extends AbstractServer {
 				if (!isListening() && getNumberOfClients() == 0) {
 					String message2 = messages[1];
 					setPort(Integer.parseInt(message2));
+					serverUI.display("Port set to: " + message2);
 				} else {
 					serverUI.display("Error: please close the server to set port.");
 				}
@@ -188,7 +192,7 @@ public class EchoServer extends AbstractServer {
 	@Override
 	synchronized protected void clientDisconnected(ConnectionToClient client) {
 		// **** Changed for E49' - JI and KS
-		System.out.println("A client has disconnected.");
+		System.out.println(client.getInfo("LoginID") + " has disconnected.");
 	}
 
 }
