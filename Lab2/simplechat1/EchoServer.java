@@ -56,11 +56,12 @@ public class EchoServer extends AbstractServer {
 
 		// **** Changed for E51' - JI and KS
 		if (((String) msg).startsWith("#login")) {
-			if (client.getInfo("LoginID").equals(null)) {
+			if (client.getInfo("LoginID") == null) {
 				client.setInfo("LoginID", ((String) msg).split(" ")[1]);
 			} else {
 				try {
 					client.sendToClient("Error: You cannot set another login.");
+					client.close();
 				} catch (IOException e) {
 				}
 			}

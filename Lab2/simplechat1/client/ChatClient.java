@@ -125,13 +125,23 @@ public class ChatClient extends AbstractClient {
 				break;
 
 			case "#login":
-				if (!isConnected()) {
+				// **** Changed for E51' - JI and KS
+				if (messages.length > 1) {
 					try {
-						openConnection();
+						sendToServer(message);
 					} catch (IOException e) {
+						clientUI.display("Could not send message to server. Terminating client.");
+						quit();
 					}
 				} else {
-					clientUI.display("Error: please logoff to login.");
+					if (!isConnected()) {
+						try {
+							openConnection();
+						} catch (IOException e) {
+						}
+					} else {
+						clientUI.display("Error: please logoff to login.");
+					}
 				}
 				break;
 
@@ -153,7 +163,7 @@ public class ChatClient extends AbstractClient {
 			try {
 				sendToServer(message);
 			} catch (IOException e) {
-				clientUI.display("Could not send message to server.  Terminating client.");
+				clientUI.display("Could not send message to server. Terminating client.");
 				quit();
 			}
 		}
